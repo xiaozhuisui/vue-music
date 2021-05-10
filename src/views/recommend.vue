@@ -1,26 +1,45 @@
 <!--  -->
 <template>
-  <div class="recommend">
-    <div class="slider-wrapper">
-      <div class="slider-content">
-        <Slider :sliders="sliders" v-if="sliders.length"></Slider>
+  <div class="recommend" v-loading:[loadingText]="loading">
+    <scroll class="recommend-content">
+      <div>
+        <div class="slider-wrapper">
+          <div class="slider-content">
+            <Slider :sliders="sliders" v-if="sliders.length"></Slider>
+          </div>
+        </div>
+        <div class="recommend-list">
+          <h1 class="list-title" v-show="!loading">热门歌单推荐</h1>
+          <ul>
+            <li v-for="item in albums" class="item" :key="item.id" @click="selectItem(item)">
+              <div class="icon">
+                <img width="60" height="60" v-lazy="item.pic" />
+              </div>
+              <div class="text">
+                <h2 class="name">{{ item.username }}</h2>
+                <p class="title">{{item.title}}</p>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </scroll>
   </div>
 </template>
 
 <script >
 import { getRecommend } from '../service/recommend'
 import Slider from '@/components/base/slider/slider'
+import Scroll from '@/components/base/scroll/scroll'
 export default {
   name: 'recommend',
-  components: { Slider },
+  components: { Slider, Scroll },
   data() {
     return {
       sliders: [],
       albums: [],
       selectedAlbum: null,
-      zhuishui: 'zheng'
+      loadingText: '正在载入。。。'
     }
   },
   computed: {

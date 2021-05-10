@@ -1,29 +1,29 @@
 <!--  -->
 <template>
-  <div>
+  <div ref="rootRef">
     <slot></slot>
   </div>
 </template>
 
 <script >
-import { reactive, toRefs, onBeforeMount, onMounted } from 'vue'
+import { ref } from 'vue'
+import useScroll from './use-scroll'
 export default {
   name: '',
-  setup() {
-    console.log('1-开始创建组件-setup')
-    onBeforeMount(() => {
-      console.log('2.组件挂载页面之前执行----onBeforeMount')
-    })
-    onMounted(() => {
-      console.log('3.-组件挂载到页面之后执行-------onMounted')
-    })
-    const refData = toRefs(data);
-    return {
-      ...refData,
+  props: {
+    click: {
+      type: Boolean,
+      default: true
     }
-
+  },
+  setup(props) {
+    const rootRef = ref(null)
+    useScroll(rootRef, props)
+    return {
+      rootRef
+    }
   }
-};
+}
 </script>
 <style scoped>
 </style>
