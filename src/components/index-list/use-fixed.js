@@ -28,7 +28,7 @@ export default function useFixed(props) {
     await nextTick()
     calculate()
   })
-
+  /* 区别就是一个是对象 一个是普通属性 */
   watch(scrollY, (newY) => {
     const listHeightsVal = listHeights.value
     for (let i = 0; i < listHeightsVal.length - 1; i++) {
@@ -43,6 +43,7 @@ export default function useFixed(props) {
 
   function calculate() {
     const list = groupRef.value.children
+    console.log(groupRef.value)
     const listHeightsVal = listHeights.value
     let height = 0
 
