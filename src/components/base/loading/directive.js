@@ -28,9 +28,7 @@ const loadingDirective = {
 function append(el) {
   const style = getComputedStyle(el)
   if (['absolute', 'fixed', 'relative'].indexOf(style.position) === -1) {
-    debugger
     addClass(el, relativeCls)
-    debugger
   }
   el.appendChild(el.instance.$el)
 }
